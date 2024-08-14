@@ -1,0 +1,65 @@
+<!-- 
+    This is a multi-line comment.
+
+    macUser note: 
+    Set Executable Permissions:
+    Open your terminal and navigate to the directory where the scripts are saved. Run the following commands to make them executable:
+
+    chmod +x "file name"
+
+    Deploy the Test HTML Page.
+    Use SCP to copy the index.html file to the VM:
+    Code:
+
+        Copy the File to the VM:
+        cp index.html azureuser@52.138.210.43:~/
+
+        Verify the File in the Target Directory:
+        ssh azureuser@52.138.210.43 'ls -la'
+        
+        SSH into the VM and Move the File to /var/www/html/ on the VM:
+        ssh azureuser@52.138.210.43 'sudo cp index.html /var/www/html/'
+
+
+    Open a web browser and go to:
+    http://<VM_Public_IP>
+-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Azure!</title>
+    <style>
+        body {
+            background-color: #e0f7fa; /* Light teal background */
+            color: #333;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
+        h1 {
+            color: #007acc;
+        }
+        p {
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome!</h1>
+    <p>You've successfully set up a web server on Azure.</p>
+    <p>  
+        
+    </p>
+    <p>Why do not websites make great comedians? Because they all have the same background: white!</p>
+    <p>But not this one! We added some color to keep things interesting. 😉</p>
+    <p>  
+
+    </p>
+    <p>Enjoy exploring, and if the server starts telling jokes, it might just need a reboot!</p>
+</body>
+</html>
+

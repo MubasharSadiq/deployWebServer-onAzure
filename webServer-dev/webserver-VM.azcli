@@ -1,0 +1,28 @@
+# Variables for the resources
+
+RESOURCE_GROUP="webserverRG"                         # BASE Resource Group name 
+LOCATION="northeurope"                               # Azure region (location)
+VM_NAME="MyUbuntuWebServer"                          # Name of the VM to be created
+VM_SIZE="Standard_B1ls"                              # Size of the VM (Standard_B1ls is a low-cost option)
+IMAGE="Ubuntu2204"                                   # OS image (Ubuntu 22.04 LTS)
+ADMIN_USERNAME="azureuser"                           # Admin username for the VM
+
+
+# Step 1: Log in to your Azure account using
+az login
+
+# Step 2: Create a Resource Group and Set location
+az group create --name $RESOURCE_GROUP --location $LOCATION 
+
+# Step 3: Create the Virtual Machine (VM) with the generated SSH Key
+az vm create \
+    --resource-group $RESOURCE_GROUP \
+    --name $VM_NAME \
+    --location $LOCATION \
+    --image $IMAGE \
+    --size $VM_SIZE \
+    --admin-username $ADMIN_USERNAME \
+    --generate-ssh-keys 
+
+# Step 4: Open Port 80 (HTTP)for Web Traffic
+az vm open-port --resource-group $RESOURCE_GROUP --name $VM_NAME --port 80
