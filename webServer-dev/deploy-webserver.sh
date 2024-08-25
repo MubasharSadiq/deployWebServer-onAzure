@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # Variables
-RESOURCE_GROUP="webserverRG"                         # Resource Group 
+RESOURCE_GROUP="webserverRG2"                         # Resource Group 
 LOCATION="northeurope"                               # Azure region (location)
-VM_NAME="MyUbuntuWebServer"                          # Name of the VM 
+VM_NAME="MyUbuntuWebServer-Cloudinit"                          # Name of the VM 
 VM_SIZE="Standard_B1ls"                              # Size of the VM (Standard_B1ls)
 IMAGE="Ubuntu2204"                                   # OS image (Ubuntu 22.04 LTS)
 ADMIN_USERNAME="mobi"                           # Admin username for the VM

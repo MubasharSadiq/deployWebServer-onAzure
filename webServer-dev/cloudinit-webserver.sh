@@ -30,7 +30,7 @@ cat << EOT > /var/www/html/index.html
 </head>
 <body>
     <h1>Welcome!</h1>
-    <p>You've successfully landed on Mubashar Web Page.</p>
+    <p>Hello, my name is Mubashar. You've successfully landed on my simple Web Page.</p>
     <p>Thank you for visiting</p>
 </body>
 </html>
