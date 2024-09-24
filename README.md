@@ -209,8 +209,6 @@ In this step we will deploy and verify that everything is working as it should.
 
 > **`index.html`is in correct dir in our VM**
 
-![htmlcloudinit](Index.htmlCloudinit.png)
-
 > **Web Page accessing from interent**
 
 [Return to Main Table of Contents](#table-of-contents)
