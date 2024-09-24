@@ -48,8 +48,6 @@ In this tutorial, This guide provides three alternative methods for deploying a 
     - [deploy-armTemplate.sh](#deploy-armtemplatesh)
     - [index.html](#indexhtml)
 
-![Webpage](webpage.png)  
-![vmPublicIP](vmPublicip.png)
 
 ### **Security Measures**
 
@@ -94,7 +92,7 @@ I have created a basic HTML web page named index.html. To view the page code, cl
     - vmNAME = `MyUbuntuWebServer`
     - vmSIZE = `Standard_B1ls`
     - IMAGE = `Ubuntu Server 24.04 LTS - x64 Gen2`
-    - adminUSERNAME = `mobi`
+    - adminUSERNAME = `azureuser`
     - authenticationType = `SSH`
 4. **Inbound Port Rules**:
    - Open port **HTTP 80** and **SSH 22**.
@@ -111,9 +109,8 @@ As soon as VM is created, SSH key will be downloaded to our local computer.
 
     **NOTE:** for mac user like myself **`chmod 400 /path/to/your-key.pem`** to set file permission.
     > **`chmod 400 MyUbuntuWebServer-GUI_key.pem`**
-    > **`ssh -i MyUbuntuWebServer-GUI_key.pem mobi@20.240.218.180`**
+    > **`ssh -i MyUbuntuWebServer-GUI_key.pem azureuser@<azureVM-publicIP>`**
 
-    ![SSH to VM](sshToVM_GUI.png)
 
 2. **Install Nginx**:
 After successfully getting access, we will install Nginx server.
@@ -121,7 +118,7 @@ After successfully getting access, we will install Nginx server.
    > - **`sudo apt-get install -y nginx`**
 
 3. **Verify Installation:**
-     ![Installation Verification](NginxInstallation.png)
+   > - **`sudo systemctl status nginx`**
 
 #### **Step 4: Deploy the application (GUI)**
 
@@ -129,15 +126,13 @@ After successfully getting access, we will install Nginx server.
     - We need to copy the **`index.html`** file to our web server VM **`/var/www/html/`**
     For that we securely transfer a file **`index.html`** from your local machine to a remote server and then move that file to the web server’s root directory on the remote machine.
    > `scp -i <private-key-for-auth> <path/index.html> username@vm-public-ip:/var/www/html/`
-   >**`scp -i MyUbuntuWebServer-GUI_key.pem /Users/mubashar/Documents/Git/webServer-dev/index.html mobi@20.240.218.180:~/index.html`**
 
     - Copy the **index.html** file from the user’s home directory to the web server’s root directory **/var/www/html**.
    > `ssh -i <private-key-for-auth> username@vm-public-ip sudo cp index.htm /var/www/html/`
-   > **`ssh -i MyUbuntuWebServer-GUI_key.pem mobi@20.240.218.180 sudo cp index.html /var/www/html`**
 
    **Verify the process**
 
-      ![index.html-onVM](Index.htmlonVM.png)
+    SSH into the VM and verify that our **ìndex.html`** is there.
 
 2. **Restart Nginx**:
 
@@ -147,8 +142,7 @@ After successfully getting access, we will install Nginx server.
 
 1. **Web Page**.
      To verify the web page's accessibility from the internet, I copied the VM's **public IP address** and pasted it into a web browser.
-
-     ![webpage-GUI](webpage-GUI.png)
+   
 
 [Return to Main Table of Contents](#table-of-contents)
 
@@ -212,15 +206,12 @@ Click the link below to access the deploy.webserver.sh script. This script autom
 #### **Step 5: Verify the solution (Cloud-init)**
 
 In this step we will deploy and verify that everything is working as it should.
-![CreatingRGVM](CreatingVMRGcloudinit.png)
 
 > **`index.html`is in correct dir in our VM**
 
 ![htmlcloudinit](Index.htmlCloudinit.png)
 
 > **Web Page accessing from interent**
-
-![webpageCloudinit](cloudinitWebPage.png)
 
 [Return to Main Table of Contents](#table-of-contents)
 
@@ -295,15 +286,14 @@ To Deploye, Run:
 #### **Step 5: Verify the solution (ARM)**
 
 1. **Verify Nginx, index.html**.
-![verifyNginxHTML](verifyNginxHTML.png)
+
 1. **Web Page**.
-![armWebPage](webpage.png)
 
 [Return to Main Table of Contents](#table-of-contents)
 
 ## **Conclusion**
 
-In this tutorial I have provided three alternative methods for deploying a web server on Azure, each with detailed steps for developing, provisioning, configuring, deploying, and verifying the solution.
+In this guide I have provided three alternative methods for deploying a web server on Azure, each with detailed steps for developing, provisioning, configuring, deploying, and verifying the solution.
 
 [Return to Main Table of Contents](#table-of-contents)
 
@@ -379,7 +369,7 @@ LOCATION="northeurope"
 VM_NAME="MyUbuntuWebServer"
 VM_SIZE="Standard_B1ls"
 IMAGE="Ubuntu2204"
-ADMIN_USERNAME="mobi"
+ADMIN_USERNAME="azureuser"
 
 # Step 1: Create the Resource Group
 az group create --name $RESOURCE_GROUP --location $LOCATION 
@@ -412,7 +402,7 @@ LOCATION="northeurope"
 VM_NAME="MyUbuntuWebServer"
 VM_SIZE="Standard_B1ls"
 IMAGE="Ubuntu2204"
-ADMIN_USERNAME="mobi"
+ADMIN_USERNAME="azureuser"
 
 # Step 1: Here we will create the Resource Group
 echo "Creating resource group: $RESOURCE_GROUP in $LOCATION"
@@ -638,7 +628,7 @@ az group create --name armRG --location northeurope
 az deployment group create \
 --resource-group armRG \
 --template-file armTemplate-webserver.json \
---parameters adminUsername=mobi \
+--parameters adminUsername=azureuser \
              adminPublicKey="$(cat ~/.ssh/id_rsa.pub)" \
              CustomData=@cloudinit-webserver.sh
 ```
