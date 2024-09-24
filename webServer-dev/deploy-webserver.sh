@@ -6,7 +6,7 @@ LOCATION="northeurope"                               # Azure region (location)
 VM_NAME="MyUbuntuWebServer"                          # Name of the VM 
 VM_SIZE="Standard_B1ls"                              # Size of the VM (Standard_B1ls)
 IMAGE="Ubuntu2204"                                   # OS image (Ubuntu 22.04 LTS)
-ADMIN_USERNAME="mobi"                                # Admin username for the VM
+ADMIN_USERNAME="azureuser"                           # Admin username for the VM
 
 # Don't forget to az login 
 
