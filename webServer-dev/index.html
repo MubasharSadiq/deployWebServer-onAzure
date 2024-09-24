@@ -12,13 +12,13 @@
     Code:
 
         Copy the File to the VM:
-        cp index.html azureuser@52.138.210.43:~/
+        cp index.html azureuser@<azure-vm-publicIP>:~/
 
         Verify the File in the Target Directory:
-        ssh azureuser@52.138.210.43 'ls -la'
+        ssh azureuser@<azure-vm-publicIP> 'ls -la'
         
         SSH into the VM and Move the File to /var/www/html/ on the VM:
-        ssh azureuser@52.138.210.43 'sudo cp index.html /var/www/html/'
+        ssh azureuser@<azure-vm-publicIP> 'sudo cp index.html /var/www/html/'
 
 
     Open a web browser and go to:
